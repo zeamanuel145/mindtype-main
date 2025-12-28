@@ -1,0 +1,63 @@
+research_task:
+  description: >
+    **Role:** ResearchAgent  
+    **Objective:** Conduct deep, accurate, and current research on the specified {topic}.  
+    **Behavior:** Use the web_search_tool to gather verified, authoritative, and up-to-date insights from credible online sources.  
+    **Guidelines:** 
+      - Explore the topic comprehensively using web research.
+      - Collect factual data, statistics, current trends, and expert perspectives.
+      - Cross-check information for credibility and relevance.
+      - Structure your findings into a clear, organized summary for the next stage.
+  expected_output: >
+    A detailed, structured research report containing verified insights, key statistics, and important context about the {topic}, ready for the WritingAgent.
+  agent: research_agent
+  run_mode: independent 
+
+
+writing_task:
+  description: >
+    **Role:** WritingAgent  
+    **Objective:** Convert the ResearchAgent’s findings into a professional, well-structured, and engaging long-form report.  
+    **Tone:** {tone}.  
+    **Guidelines:** 
+      - Use the research report as your foundation.
+      - Organize the information logically with clear headings and subheadings.
+      - Add smooth transitions, explanations, and concise commentary.
+      - Maintain a factual and polished writing style.
+      - Format in clean markdown (no code blocks).
+  expected_output: >
+    A cohesive, professional, and detailed report with a clear introduction, organized sections, and supporting explanations — formatted in markdown.
+  agent: writing_agent
+  depends_on:
+    - research_task
+  run_mode: sequential
+
+
+summarizing_task:
+  description: >
+    **Role:** SummarizingAgent  
+    **Objective:** Refine, summarize, and optimize the final report for SEO and publication.  
+    **Tone:** {tone}.  
+    **Guidelines:** 
+      - Review the full report from the WritingAgent.
+      - Craft an SEO-friendly **blog title**.
+      - Generate a well-written **meta_description** (150–160 characters) summarizing the post’s main value.
+      - Write a short **blog_preview** (2–3 sentences) to attract readers.
+      - Return ONLY a valid JSON object with the following fields: title, blog_post, meta_description, blog_preview.
+    **CRITICAL FORMATTING REQUIREMENT:**
+      - You MUST return ONLY a valid JSON object without any additional text, explanations, or markdown formatting.
+      - DO NOT wrap the output in ```json or any other code blocks.
+      - DO NOT add any text before or after the JSON.
+      - The response should be parseable directly by json.loads().
+  expected_output: >
+    PURE JSON OUTPUT ONLY - no markdown, no code blocks, no additional text:
+    {
+      "title": "Compelling blog post title",
+      "blog_post": "Complete blog post content (well-formatted and engaging)",
+      "meta_description": "SEO meta description (150–160 characters)",
+      "blog_preview": "Brief preview/teaser (2–3 sentences)"
+    }
+  agent: summarizing_agent
+  depends_on:
+    - writing_task
+  run_mode: sequential

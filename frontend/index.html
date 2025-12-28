@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindType - AI Blog Generator Chatbot</title>
+    <link rel="icon" type="image/png" href="./mindtype-high-resolution-logo.png">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="chatbot-container">
+        <!-- Header -->
+        <div class="chatbot-header">
+            <h1>MindType</h1>
+            <p>AI-Powered Social Media Blog Generator</p>
+        </div>
+
+        <!-- Chat Messages Area -->
+        <div class="chat-messages" id="chatMessages">
+            <div class="message bot-message">
+                <p>Welcome to MindType! I'm your AI-powered social media blog generator. Ask me anything about creating amazing content, or let me generate a random blog post for you!</p>
+                <span class="timestamp" id="timestamp1"></span>
+            </div>
+        </div>
+
+        <!-- Quick Action Buttons -->
+        <div class="quick-actions">
+            <button class="quick-btn" id="askBtn">Ask about MindType</button>
+            <button class="quick-btn" id="generateBtn">Create a random blog post</button>
+        </div>
+
+        <!-- Input Area -->
+        <div class="input-container">
+            <textarea id="messageInput" placeholder="Type your message..." rows="1"></textarea>
+            <button id="sendBtn" class="send-btn" aria-label="Send message">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
